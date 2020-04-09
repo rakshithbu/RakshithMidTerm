@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     int totalCourseHours = 0;
     int pos =0;
     Button add;
+    CheckBox ch1,ch2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +48,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         sp.setOnItemSelectedListener(this);
         add = findViewById(R.id.add);
         add.setOnClickListener(this);
+        ch1=findViewById(R.id.accomodation);
+        ch2=findViewById(R.id.medical);
+        ch1.setOnCheckedChangeListener(this);
+        ch2.setOnCheckedChangeListener(this);
     }
 
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        group.getCheckedRadioButtonId();
 
         switch (group.getCheckedRadioButtonId()){
             case R.id.radioGrad:checkedButtonId="Grad";break;
@@ -80,6 +85,25 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+        if(buttonView.getText().toString().equalsIgnoreCase("Accomodation")){
+            if(isChecked){
+                totalCourseFees = totalCourseFees + 1000;
+            }else{
+                totalCourseFees = totalCourseFees - 1000;
+            }
+            totalFee.setText(String.valueOf(totalCourseFees));
+        }
+
+        if(buttonView.getText().toString().equalsIgnoreCase("Medical insurance")){
+            if(isChecked){
+                totalCourseFees = totalCourseFees + 700;
+            }else{
+                totalCourseFees = totalCourseFees - 700;
+            }
+            totalFee.setText(String.valueOf(totalCourseFees));
+        }
+        System.out.println(buttonView.getText());
+        System.out.println(isChecked);
     }
 
     @Override
@@ -96,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             totalHours.setText(String.valueOf(totalCourseHours));
             totalFee.setText(String.valueOf(totalCourseFees));
 
-        }else{
+        }else if(checkedButtonId.equalsIgnoreCase("NotGrad")){
+
             int tempHours = totalCourseHours +  courseHours[pos];
                 if(tempHours >19){
                 Toast.makeText(getApplicationContext(), "Cannot have total hours more than 19 for undergraduate", Toast.LENGTH_LONG).show();
@@ -107,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
             totalHours.setText(String.valueOf(totalCourseHours));
             totalFee.setText(String.valueOf(totalCourseFees));
+        }else{
+            Toast.makeText(getApplicationContext(), "Please select graduate or not graduate", Toast.LENGTH_LONG).show();
         }
 
     }
