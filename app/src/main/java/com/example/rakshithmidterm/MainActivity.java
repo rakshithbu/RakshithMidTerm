@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             case R.id.radioGrad:checkedButtonId="Grad";break;
             case R.id.radioNotGrad:checkedButtonId="NotGrad";break;
         }
+
+        System.out.println(checkedButtonId);
     }
 
     @Override
@@ -83,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onClick(View view) {
         if(checkedButtonId.equalsIgnoreCase("Grad")){
-            int tempHours = totalCourseFees +  courseHours[pos];
+            System.out.println(courseHours[pos]);
+            int tempHours = totalCourseHours +  courseHours[pos];
             if(tempHours >21){
-                Toast.makeText(getApplicationContext(), "Cannot have total hours more than 21", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Cannot have total hours more than 21 for graduate", Toast.LENGTH_LONG).show();
             }else{
                 totalCourseFees = totalCourseFees+ coursefees[pos];
                 totalCourseHours = totalCourseHours + courseHours[pos];
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             totalFee.setText(String.valueOf(totalCourseFees));
 
         }else{
-            int tempHours = totalCourseFees +  courseHours[pos];
+            int tempHours = totalCourseHours +  courseHours[pos];
                 if(tempHours >19){
                 Toast.makeText(getApplicationContext(), "Cannot have total hours more than 19 for undergraduate", Toast.LENGTH_LONG).show();
             }else{
