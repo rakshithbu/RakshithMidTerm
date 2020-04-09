@@ -32,7 +32,10 @@ public class login_activity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         System.out.println("inside onclick listener");
-        if (count<3)
+        if(name.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter name", Toast.LENGTH_LONG).show();
+        }else{
+
             if(user.getText().toString().equalsIgnoreCase("student1") && pass.getText().toString().equals("123456"))
             {
                 //create an intent object using the name of the activity you want to move to
@@ -43,10 +46,8 @@ public class login_activity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
                 count++; //counting the failed login trials
             }
-        else {
-            //after the fourth failed longin
-            Toast.makeText(getApplicationContext(), "Access denied", Toast.LENGTH_LONG).show();
-            login.setEnabled(false);
+
+
         }
     }
 }
